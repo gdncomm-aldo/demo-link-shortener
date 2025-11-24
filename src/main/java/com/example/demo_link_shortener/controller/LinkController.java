@@ -19,6 +19,7 @@ import com.example.demo_link_shortener.controller.model.LinkResponse;
 import com.example.demo_link_shortener.exception.DataNotFoundException;
 import com.example.demo_link_shortener.repository.LinkRepository;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -40,7 +41,7 @@ public class LinkController {
   }
 
   @PostMapping
-  public LinkResponse create(@RequestBody LinkRequest webRequest) {
+  public LinkResponse create(@Valid @RequestBody LinkRequest webRequest) {
     final var commandRequest = CreateLinkCommandRequest.builder()
       .url(webRequest.getUrl())
       .build();
