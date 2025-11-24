@@ -6,15 +6,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo_link_shortener.entity.Link;
+import com.example.demo_link_shortener.command.CommandExecutor;
+import com.example.demo_link_shortener.command.GetAllLinkCommand;
+import com.example.demo_link_shortener.command.model.GetAllLinkCommandRequest;
+import com.example.demo_link_shortener.controller.model.LinkResponse;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/links")
+@RequiredArgsConstructor
 public class LinkController {
 
+  private final CommandExecutor commandExecutor;
+
   @GetMapping
-  public List<Link> getAll() {
-    return List.of(new Link("1", "https://www.blibli.com"),
-      new Link("2", "https://www.bliblitiket.com"));
+  public List<LinkResponse> getAll() {
+    final var response = commandExecutor.execute(GetAllLinkCommand.class, new GetAllLinkCommandRequest());
+    return response.getData()
+      .stream()
+      .map(link -> new LinkResponse(link.getId(), link.getUrl()))
+      .toList();
   }
 }
