@@ -1,6 +1,7 @@
 package com.example.demo_link_shortener;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import org.junit.jupiter.api.AfterEach;
@@ -55,6 +56,23 @@ class LinkControllerIntegrationTest {
       .andExpect(content().json("""
       { "id": "1", "url": "https://www.blibli.com" }
       """, JsonCompareMode.STRICT));
+  }
+
+
+  @Test
+  void createLink_GivenValidRequest_ReturnExpectedResponse() throws Exception {
+    mockMvc.perform(post("/links").accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("""
+        { "url": "https://www.dekoruma.com" }
+        """
+        )
+      )
+      .andExpect(content().json(
+        """
+          { "id": "00lflt", "url": null }
+          """, JsonCompareMode.STRICT
+      ));
   }
 
 }
