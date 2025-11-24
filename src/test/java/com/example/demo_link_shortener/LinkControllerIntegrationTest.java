@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.MediaType;
 import org.springframework.test.json.JsonCompareMode;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +21,7 @@ import com.example.demo_link_shortener.repository.LinkRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureWireMock(stubs = "classpath:/stubs", port = 10001)
 class LinkControllerIntegrationTest {
 
   @Autowired
@@ -71,7 +73,7 @@ class LinkControllerIntegrationTest {
       )
       .andExpect(content().json(
         """
-          { "id": "00lflt", "url": null }
+          { "id": "016v7k", "url": null }
           """, JsonCompareMode.STRICT
       ));
   }
