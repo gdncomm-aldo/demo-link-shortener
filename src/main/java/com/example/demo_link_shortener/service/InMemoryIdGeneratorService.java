@@ -1,17 +1,15 @@
 package com.example.demo_link_shortener.service;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 public class InMemoryIdGeneratorService implements IdGeneratorService {
 
-  private final AtomicLong atomicLong;
+  private long counter;
 
   public InMemoryIdGeneratorService(long seed) {
-    this.atomicLong = new AtomicLong(seed);
+    this.counter = seed;
   }
 
   @Override
   public long generateId() {
-    return atomicLong.incrementAndGet();
+    return ++counter;
   }
 }

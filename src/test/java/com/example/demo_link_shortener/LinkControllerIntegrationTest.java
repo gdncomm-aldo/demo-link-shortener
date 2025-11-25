@@ -3,6 +3,11 @@ package com.example.demo_link_shortener;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,6 +78,37 @@ class LinkControllerIntegrationTest {
           { "id": "00lflt", "url": null }
           """, JsonCompareMode.STRICT
       ));
+  }
+
+  @Test
+  void createLink_GivenMultipleRequest_ReturnExpectedResponse() throws Exception {
+    final var callables = new ArrayList<Callable<Void>>();
+    for (int i = 0; i < 100; i++) {
+      callables.add(new Callable<Void>() {
+        @Override
+        public Void call() throws Exception {
+
+          mockMvc.perform(post("/links").accept(MediaType.APPLICATION_JSON)
+              .contentType(MediaType.APPLICATION_JSON)
+              .content("""
+        { "url": "https://www.dekoruma.com" }
+        """
+              )
+            )
+            .andExpect(status().isOk());
+          return null;
+        }
+      });
+    }
+
+    try (final var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
+
+      final var results = executorService.invokeAll(callables);
+
+      for (final var result : results) {
+        result.get();
+      }
+    }
   }
 
 }
