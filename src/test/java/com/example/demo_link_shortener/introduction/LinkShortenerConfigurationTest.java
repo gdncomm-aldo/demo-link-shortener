@@ -88,26 +88,44 @@ public class LinkShortenerConfigurationTest {
     Assertions.assertEquals(user1, user2);
   }
 
+  /**
+   * 5. Singleton Bean is not Thread Safe
+   * Demonstrates that a singleton Spring bean is not thread-safe
+   * when it contains mutable shared state and no synchronization.
+   *
+   * This test runs multiple threads that update the same User
+   * bean instance concurrently. Due to race conditions, the final
+   * value is usually less than the expected number of updates,
+   * proving that the singleton bean is not thread-safe.
+   */
   @Test
   void linkShortenerSingletonBeanIsNotThreadSafe() throws InterruptedException {
+    // Create Spring ApplicationContext
     ApplicationContext linkShortenerApplicationContext =
         new AnnotationConfigApplicationContext(LinkShortenerConfiguration.class);
 
+    // Retrieve the singleton User bean (one shared instance)
     User user1 = linkShortenerApplicationContext.getBean("firstUser", User.class);
 
     int numOfThreads = 1000;
     Thread[] threads = new Thread[numOfThreads];
 
+    // Start 1000 threads that all update the same bean instance
     for (int i = 0; i < numOfThreads; i++) {
       threads[i] = new Thread(user1::increaseShortenerCount);
       threads[i].start();
     }
 
+    // Wait for all threads to finish
     for (Thread thread : threads) {
       thread.join();
     }
 
+    // Print the result to observe lost updates
     System.out.println(user1.getShortenerCount());
+
+    // Expected value is 1000, but due to race conditions,
+    // the actual value is usually less.
     Assertions.assertNotEquals(100, user1.getShortenerCount());
   }
 
