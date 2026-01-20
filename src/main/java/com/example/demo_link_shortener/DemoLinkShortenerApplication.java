@@ -1,18 +1,20 @@
 package com.example.demo_link_shortener;
 
 import com.example.demo_link_shortener.linkShortener.LinkShortener;
+import com.example.demo_link_shortener.linkShortener.properties.ShortenerProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 
 /**
  * Application entry point.
  *
- * Starts the Spring context and retrieves a LinkShortener bean
- * to demonstrate how @Qualifier overrides @Primary when
- * selecting a dependency.
+ * Enables configuration properties and starts the Spring context
+ * to demonstrate injecting external configuration into beans.
  */
 @SpringBootApplication
+@EnableConfigurationProperties({ShortenerProperties.class})
 public class DemoLinkShortenerApplication {
 
 	public static void main(String[] args) {

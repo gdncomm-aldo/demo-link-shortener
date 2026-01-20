@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 /**
  * Component that depends on ShortenerService.
  *
- * This class uses @Qualifier to explicitly select which
- * implementation should be injected, overriding @Primary.
+ * This class demonstrates constructor-based dependency injection
+ * combined with @Qualifier for explicit implementation selection.
  */
 @Component
 @Getter
