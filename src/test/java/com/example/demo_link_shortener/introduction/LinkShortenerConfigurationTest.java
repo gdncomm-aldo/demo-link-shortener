@@ -51,6 +51,7 @@ public class LinkShortenerConfigurationTest {
   }
 
   /**
+   * 3. Duplicate Bean
    * Verifies that multiple beans of the same type can coexist in the Spring ApplicationContext
    * as long as they have unique bean names.
    * <p>
