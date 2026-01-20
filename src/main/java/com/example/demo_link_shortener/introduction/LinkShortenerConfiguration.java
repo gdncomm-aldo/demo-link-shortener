@@ -27,6 +27,13 @@ public class LinkShortenerConfiguration {
     return new User();
   }
 
+  /**
+   * Defines a prototype-scoped User bean.
+   * <p>
+   * Each request to the ApplicationContext for this bean
+   * will return a new User instance, unlike singleton beans
+   * which return the same instance every time.
+   */
   @Bean
   @Scope("prototype")
   public User prototypeUser() {
