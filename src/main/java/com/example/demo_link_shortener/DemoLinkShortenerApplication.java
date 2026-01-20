@@ -9,9 +9,8 @@ import org.springframework.context.ApplicationContext;
 /**
  * Application entry point.
  * <p>
- * This class starts the Spring application context and retrieves
- * a LinkShortener bean to demonstrate constructor-based dependency
- * injection in action.
+ * Starts the Spring context and retrieves a LinkShortener bean
+ * to demonstrate setter-based dependency injection.
  */
 @SpringBootApplication
 public class DemoLinkShortenerApplication {

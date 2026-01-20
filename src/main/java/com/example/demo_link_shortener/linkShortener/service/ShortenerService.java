@@ -1,10 +1,10 @@
 package com.example.demo_link_shortener.linkShortener.service;
 
 /**
- * Defines the contract for URL shortening logic.
+ * Setter used by Spring to inject the ShortenerService dependency.
  * <p>
- * This allows multiple implementations to be injected
- * without changing the dependent class.
+ * This allows the dependency to be changed after object creation,
+ * but does not guarantee immutability or full initialization.
  */
 public interface ShortenerService {
 
