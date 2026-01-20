@@ -69,6 +69,7 @@ public class LinkShortenerConfigurationTest {
   }
 
   /**
+   * 4. Primary bean
    * Verifies that the @Primary annotation marks a bean as the
    * default choice when multiple beans of the same type exist.
    * <p>
