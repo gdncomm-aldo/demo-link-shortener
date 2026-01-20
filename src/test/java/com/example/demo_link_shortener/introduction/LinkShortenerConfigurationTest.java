@@ -68,5 +68,23 @@ public class LinkShortenerConfigurationTest {
     Assertions.assertNotEquals(user1, user2);
   }
 
+  /**
+   * Verifies that the @Primary annotation marks a bean as the
+   * default choice when multiple beans of the same type exist.
+   * <p>
+   * This test retrieves one User bean explicitly by name and another implicitly by type.
+   * Both should refer to the same instance because the named bean is marked as @Primary.
+   */
+  @Test
+  void linkShortenerPrimaryBeanTest(){
+    ApplicationContext linkShortenerApplicationContext =
+        new AnnotationConfigApplicationContext(LinkShortenerConfiguration.class);
+
+    User user1 = linkShortenerApplicationContext.getBean("firstUser", User.class);
+    User user2 = linkShortenerApplicationContext.getBean(User.class);
+
+    Assertions.assertEquals(user1, user2);
+  }
+
 
 }
