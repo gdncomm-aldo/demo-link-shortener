@@ -130,6 +130,7 @@ public class LinkShortenerConfigurationTest {
   }
 
   /**
+   * 6. Prototype Bean
    * Verifies that a prototype-scoped bean creates a new instance
    * every time it is requested from the Spring ApplicationContext.
    * <p>
