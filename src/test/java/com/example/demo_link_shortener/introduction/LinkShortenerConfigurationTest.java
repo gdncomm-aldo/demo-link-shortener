@@ -50,5 +50,23 @@ public class LinkShortenerConfigurationTest {
     Assertions.assertEquals(user1, user2);
   }
 
+  /**
+   * Verifies that multiple beans of the same type can coexist in the Spring ApplicationContext
+   * as long as they have unique bean names.
+   * <p>
+   * This test retrieves two User beans by their bean names
+   * and confirms that they are different instances, even though they share the same type.
+   */
+  @Test
+  void linkShortenerDuplicateBeanTest(){
+    ApplicationContext linkShortenerApplicationContext =
+        new AnnotationConfigApplicationContext(LinkShortenerConfiguration.class);
+
+    User user1 = linkShortenerApplicationContext.getBean("firstUser", User.class);
+    User user2 = linkShortenerApplicationContext.getBean("secondUser", User.class);
+
+    Assertions.assertNotEquals(user1, user2);
+  }
+
 
 }

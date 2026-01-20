@@ -11,4 +11,9 @@ public class LinkShortenerConfiguration {
     return new User();
   }
 
+  @Bean
+  public User secondUser(){
+    return new User();
+  }
+
 }
