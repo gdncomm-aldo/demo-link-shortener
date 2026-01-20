@@ -8,9 +8,13 @@ import org.springframework.context.ApplicationContext;
 
 /**
  * Application entry point.
- * <p>
+ *
  * Starts the Spring context and retrieves a LinkShortener bean
- * to demonstrate field-based dependency injection.
+ * to demonstrate how Spring chooses a dependency when multiple
+ * implementations exist.
+ *
+ * In this case, Spring will inject the implementation marked
+ * with @Primary.
  */
 @SpringBootApplication
 public class DemoLinkShortenerApplication {
@@ -19,12 +23,10 @@ public class DemoLinkShortenerApplication {
     ApplicationContext applicationContext =
         SpringApplication.run(DemoLinkShortenerApplication.class, args);
 
-    LinkShortener linkShortener1 = applicationContext.getBean(LinkShortener.class);
-    ShortenerService shortenerService1 = linkShortener1.getShortenerService();
-    ShortenerService shortenerService2 = linkShortener1.getShortenerService();
+    LinkShortener linkShortener = applicationContext.getBean(LinkShortener.class);
 
-    System.out.println("first shortenerService = " + shortenerService1);
-    System.out.println("second shortenerService = " + shortenerService2);
+    //this method will run base46, then how to run using base 64?
+    linkShortener.getShortenerService().runShortener();
 	}
 
 }

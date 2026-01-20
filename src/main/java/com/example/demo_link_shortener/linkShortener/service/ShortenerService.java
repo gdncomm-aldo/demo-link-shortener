@@ -1,10 +1,10 @@
 package com.example.demo_link_shortener.linkShortener.service;
 
 /**
- * Setter used by Spring to inject the ShortenerService dependency.
- * <p>
- * This allows multiple implementations to be injected
- * without changing the dependent class.
+ * Defines the contract for Link shortening behavior.
+ *
+ * Multiple implementations can exist and be injected
+ * into dependent components.
  */
 public interface ShortenerService {
 
