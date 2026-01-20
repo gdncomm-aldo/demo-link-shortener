@@ -129,5 +129,24 @@ public class LinkShortenerConfigurationTest {
     Assertions.assertNotEquals(100, user1.getShortenerCount());
   }
 
+  /**
+   * Verifies that a prototype-scoped bean creates a new instance
+   * every time it is requested from the Spring ApplicationContext.
+   * <p>
+   * This test retrieves the same bean name twice and asserts that
+   * the returned objects are different instances, proving that
+   * prototype scope does not use singleton behavior.
+   */
+  @Test
+  void linkShortenerPrototypeBeanTest(){
+    ApplicationContext linkShortenerApplicationContext =
+        new AnnotationConfigApplicationContext(LinkShortenerConfiguration.class);
+
+    User user1 = linkShortenerApplicationContext.getBean("prototypeUser", User.class);
+    User user2 = linkShortenerApplicationContext.getBean("prototypeUser", User.class);
+
+    Assertions.assertNotEquals(user1, user2);
+  }
+
 
 }

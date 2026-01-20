@@ -1,8 +1,8 @@
 package com.example.demo_link_shortener.introduction;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class User {
 
   // Shared mutable state inside a singleton bean

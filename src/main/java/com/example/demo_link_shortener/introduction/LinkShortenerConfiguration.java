@@ -3,6 +3,7 @@ package com.example.demo_link_shortener.introduction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class LinkShortenerConfiguration {
@@ -23,6 +24,12 @@ public class LinkShortenerConfiguration {
    */
   @Bean
   public User secondUser(){
+    return new User();
+  }
+
+  @Bean
+  @Scope("prototype")
+  public User prototypeUser() {
     return new User();
   }
 
