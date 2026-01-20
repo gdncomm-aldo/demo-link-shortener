@@ -28,5 +28,27 @@ public class LinkShortenerConfigurationTest {
     Assertions.assertNotNull(linkShortenerApplicationContext);
   }
 
+  /**
+   * 2. Spring bean
+   * Verifies that Spring beans are singleton by default.
+   * <p>
+   * This test retrieves the same bean type twice from the
+   * ApplicationContext and asserts that both references
+   * point to the exact same object instance.
+   * <p>
+   * This demonstrates Spring's default bean scope: singleton,
+   * meaning one shared instance per IoC container.
+   */
+  @Test
+  void linkShortenerBeanTest(){
+    ApplicationContext linkShortenerApplicationContext =
+        new AnnotationConfigApplicationContext(LinkShortenerConfiguration.class);
+
+    User user1 = linkShortenerApplicationContext.getBean(User.class);
+    User user2 = linkShortenerApplicationContext.getBean(User.class);
+
+    Assertions.assertEquals(user1, user2);
+  }
+
 
 }
