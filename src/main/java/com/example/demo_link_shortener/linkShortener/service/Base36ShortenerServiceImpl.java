@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 /**
  * Default implementation of ShortenerService.
  * <p>
- * This bean will be injected via setter into dependent components.
+ * This bean is injected into dependent components
+ * using field-based dependency injection.
  */
 @Service
 public class Base36ShortenerServiceImpl implements ShortenerService {

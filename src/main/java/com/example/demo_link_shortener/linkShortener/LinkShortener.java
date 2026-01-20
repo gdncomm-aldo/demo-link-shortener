@@ -8,18 +8,14 @@ import org.springframework.stereotype.Component;
 /**
  * Component that depends on ShortenerService.
  * <p>
- * This class demonstrates setter-based dependency injection,
- * where Spring injects the dependency after object creation.
+ * This class demonstrates field-based dependency injection,
+ * where Spring injects the dependency directly into the field.
  */
 @Component
 @Getter
 public class LinkShortener {
 
-  private ShortenerService shortenerService;
-
   @Autowired
-  public void setShortenerService(ShortenerService shortenerService) {
-    this.shortenerService = shortenerService;
-  }
+  private ShortenerService shortenerService;
 
 }
