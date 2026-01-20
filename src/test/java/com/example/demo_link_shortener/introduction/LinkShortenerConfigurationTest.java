@@ -88,5 +88,28 @@ public class LinkShortenerConfigurationTest {
     Assertions.assertEquals(user1, user2);
   }
 
+  @Test
+  void linkShortenerSingletonBeanIsNotThreadSafe() throws InterruptedException {
+    ApplicationContext linkShortenerApplicationContext =
+        new AnnotationConfigApplicationContext(LinkShortenerConfiguration.class);
+
+    User user1 = linkShortenerApplicationContext.getBean("firstUser", User.class);
+
+    int numOfThreads = 1000;
+    Thread[] threads = new Thread[numOfThreads];
+
+    for (int i = 0; i < numOfThreads; i++) {
+      threads[i] = new Thread(user1::increaseShortenerCount);
+      threads[i].start();
+    }
+
+    for (Thread thread : threads) {
+      thread.join();
+    }
+
+    System.out.println(user1.getShortenerCount());
+    Assertions.assertNotEquals(100, user1.getShortenerCount());
+  }
+
 
 }
