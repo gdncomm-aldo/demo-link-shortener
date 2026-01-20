@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 /**
  * Base36 implementation of ShortenerService.
  *
- * This implementation is marked as @Primary and will be
- * selected by Spring when no qualifier is specified.
+ * This implementation is marked as @Primary and will be selected
+ * by default unless overridden by @Qualifier.
  */
 @Service
 @Primary

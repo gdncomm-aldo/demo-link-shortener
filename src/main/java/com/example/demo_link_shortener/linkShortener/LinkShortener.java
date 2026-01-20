@@ -2,20 +2,29 @@ package com.example.demo_link_shortener.linkShortener;
 
 import com.example.demo_link_shortener.linkShortener.service.ShortenerService;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
  * Component that depends on ShortenerService.
  *
- * When multiple ShortenerService implementations exist,
- * Spring will inject the one marked as @Primary by default.
+ * This class uses @Qualifier to explicitly select which
+ * implementation should be injected, overriding @Primary.
  */
 @Component
 @Getter
-@RequiredArgsConstructor
 public class LinkShortener {
 
+  /**
+   * Dependency injected using @Qualifier.
+   *
+   * This explicitly selects the Base64 implementation,
+   * even though another implementation is marked as @Primary.
+   */
   private final ShortenerService shortenerService;
+
+  public LinkShortener(@Qualifier("base64ShortenerServiceImpl") ShortenerService shortenerService) {
+    this.shortenerService = shortenerService;
+  }
 
 }

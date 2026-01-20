@@ -1,7 +1,6 @@
 package com.example.demo_link_shortener;
 
 import com.example.demo_link_shortener.linkShortener.LinkShortener;
-import com.example.demo_link_shortener.linkShortener.service.ShortenerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -10,11 +9,8 @@ import org.springframework.context.ApplicationContext;
  * Application entry point.
  *
  * Starts the Spring context and retrieves a LinkShortener bean
- * to demonstrate how Spring chooses a dependency when multiple
- * implementations exist.
- *
- * In this case, Spring will inject the implementation marked
- * with @Primary.
+ * to demonstrate how @Qualifier overrides @Primary when
+ * selecting a dependency.
  */
 @SpringBootApplication
 public class DemoLinkShortenerApplication {
@@ -25,7 +21,7 @@ public class DemoLinkShortenerApplication {
 
     LinkShortener linkShortener = applicationContext.getBean(LinkShortener.class);
 
-    //this method will run base46, then how to run using base 64?
+    //this method will run base46 since the @Qualifier is reference to Base64 bean
     linkShortener.getShortenerService().runShortener();
 	}
 

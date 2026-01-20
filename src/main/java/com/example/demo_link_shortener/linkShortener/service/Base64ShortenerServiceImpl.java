@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 /**
  * Base64 implementation of ShortenerService.
  *
- * This implementation will NOT be selected by default
- * because it is not marked as @Primary.
+ * This implementation is explicitly selected using @Qualifier.
  */
 @Service
 public class Base64ShortenerServiceImpl implements ShortenerService {
